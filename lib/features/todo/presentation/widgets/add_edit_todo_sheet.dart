@@ -99,287 +99,280 @@ class _AddEditTodoSheetState extends State<AddEditTodoSheet> {
     return Padding(
       padding: EdgeInsets.only(bottom: bottomInset),
       child: Container(
-        padding: const EdgeInsets.fromLTRB(24, 8, 24, 32),
         decoration: BoxDecoration(
           color: colorScheme.surface,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Container(
-                width: 40,
-                height: 4,
-                margin: const EdgeInsets.only(bottom: 20),
-                decoration: BoxDecoration(
-                  color: colorScheme.onSurface.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(2),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(24, 8, 24, 32),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 40,
+                  height: 4,
+                  margin: const EdgeInsets.only(bottom: 20),
+                  decoration: BoxDecoration(
+                    color: colorScheme.onSurface.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
                 ),
               ),
-            ),
-
-            Row(
-              children: [
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: AppColors.primary.withValues(alpha: 0.12),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Icon(
-                    _isEditing ? Icons.edit_rounded : Icons.add_rounded,
-                    color: AppColors.primary,
-                    size: 22,
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Text(
-                  _isEditing ? 'Edit Task' : 'New Task',
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: -0.3,
-                  ),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 24),
-
-            Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
                 children: [
-                  TextFormField(
-                    controller: _titleController,
-                    textInputAction: TextInputAction.next,
-                    autofocus: !_isEditing,
-                    maxLength: 120,
-                    decoration: const InputDecoration(
-                      labelText: 'Task title *',
-                      hintText: 'What needs to be done?',
-                      counterText: '',
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: AppColors.primary.withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    validator: (v) {
-                      if (v == null || v.trim().isEmpty) {
-                        return 'Title is required';
-                      }
-                      return null;
-                    },
+                    child: Icon(
+                      _isEditing ? Icons.edit_rounded : Icons.add_rounded,
+                      color: AppColors.primary,
+                      size: 22,
+                    ),
                   ),
-
-                  const SizedBox(height: 12),
-
-                  TextFormField(
-                    controller: _descriptionController,
-                    textInputAction: TextInputAction.done,
-                    maxLines: 2,
-                    maxLength: 300,
-                    decoration: const InputDecoration(
-                      labelText: 'Notes (optional)',
-                      hintText: 'Add details...',
-                      alignLabelWithHint: true,
-                      counterText: '',
+                  const SizedBox(width: 12),
+                  Text(
+                    _isEditing ? 'Edit Task' : 'New Task',
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: -0.3,
                     ),
                   ),
                 ],
               ),
-            ),
-
-            const SizedBox(height: 20),
-
-            const _SectionLabel(label: 'Due date'),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () => _pickDueDate(context),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 12,
+              const SizedBox(height: 24),
+              Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextFormField(
+                      controller: _titleController,
+                      textInputAction: TextInputAction.next,
+                      autofocus: !_isEditing,
+                      maxLength: 120,
+                      decoration: const InputDecoration(
+                        labelText: 'Task title *',
+                        hintText: 'What needs to be done?',
+                        counterText: '',
                       ),
-                      decoration: BoxDecoration(
-                        color: _selectedDueDate != null
-                            ? _dueDateColor(_selectedDueDate!)
-                                .withValues(alpha: 0.1)
-                            : colorScheme.onSurface.withValues(alpha: 0.05),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
+                      validator: (v) {
+                        if (v == null || v.trim().isEmpty) {
+                          return 'Title is required';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 12),
+                    TextFormField(
+                      controller: _descriptionController,
+                      textInputAction: TextInputAction.done,
+                      maxLines: 2,
+                      maxLength: 300,
+                      decoration: const InputDecoration(
+                        labelText: 'Notes (optional)',
+                        hintText: 'Add details...',
+                        alignLabelWithHint: true,
+                        counterText: '',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              const _SectionLabel(label: 'Due date'),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => _pickDueDate(context),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 12,
+                        ),
+                        decoration: BoxDecoration(
                           color: _selectedDueDate != null
                               ? _dueDateColor(_selectedDueDate!)
-                                  .withValues(alpha: 0.5)
-                              : colorScheme.onSurface.withValues(alpha: 0.12),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.calendar_today_rounded,
-                            size: 18,
+                                  .withValues(alpha: 0.1)
+                              : colorScheme.onSurface.withValues(alpha: 0.05),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
                             color: _selectedDueDate != null
                                 ? _dueDateColor(_selectedDueDate!)
-                                : colorScheme.onSurface.withValues(alpha: 0.4),
+                                    .withValues(alpha: 0.5)
+                                : colorScheme.onSurface.withValues(alpha: 0.12),
                           ),
-                          const SizedBox(width: 10),
-                          Text(
-                            _selectedDueDate != null
-                                ? _formatDueDate(_selectedDueDate!)
-                                : 'Set a deadline',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: _selectedDueDate != null
-                                  ? FontWeight.w600
-                                  : FontWeight.w400,
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.calendar_today_rounded,
+                              size: 18,
                               color: _selectedDueDate != null
                                   ? _dueDateColor(_selectedDueDate!)
-                                  : colorScheme.onSurface.withValues(alpha: 0.4),
+                                  : colorScheme.onSurface
+                                      .withValues(alpha: 0.4),
                             ),
-                          ),
-                        ],
+                            const SizedBox(width: 10),
+                            Text(
+                              _selectedDueDate != null
+                                  ? _formatDueDate(_selectedDueDate!)
+                                  : 'Set a deadline',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: _selectedDueDate != null
+                                    ? FontWeight.w600
+                                    : FontWeight.w400,
+                                color: _selectedDueDate != null
+                                    ? _dueDateColor(_selectedDueDate!)
+                                    : colorScheme.onSurface
+                                        .withValues(alpha: 0.4),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                if (_selectedDueDate != null) ...[
-                  const SizedBox(width: 8),
-                  IconButton(
-                    onPressed: () => setState(() => _selectedDueDate = null),
-                    icon: const Icon(Icons.close_rounded, size: 18),
-                    style: IconButton.styleFrom(
-                      backgroundColor:
-                          colorScheme.onSurface.withValues(alpha: 0.06),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                  if (_selectedDueDate != null) ...[
+                    const SizedBox(width: 8),
+                    IconButton(
+                      onPressed: () => setState(() => _selectedDueDate = null),
+                      icon: const Icon(Icons.close_rounded, size: 18),
+                      style: IconButton.styleFrom(
+                        backgroundColor:
+                            colorScheme.onSurface.withValues(alpha: 0.06),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
+                    ),
+                  ],
+                ],
+              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  _QuickDateChip(
+                    label: 'Today',
+                    icon: Icons.wb_sunny_rounded,
+                    color: AppColors.success,
+                    isSelected: _isDateSelected(DateTime.now()),
+                    onTap: () => setState(() => _selectedDueDate = _today()),
+                  ),
+                  const SizedBox(width: 8),
+                  _QuickDateChip(
+                    label: 'Tomorrow',
+                    icon: Icons.wb_twilight_rounded,
+                    color: AppColors.warning,
+                    isSelected: _isDateSelected(
+                      DateTime.now().add(const Duration(days: 1)),
+                    ),
+                    onTap: () => setState(
+                      () => _selectedDueDate =
+                          _today().add(const Duration(days: 1)),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  _QuickDateChip(
+                    label: 'Next week',
+                    icon: Icons.date_range_rounded,
+                    color: AppColors.primary,
+                    isSelected: _isDateSelected(
+                      DateTime.now().add(const Duration(days: 7)),
+                    ),
+                    onTap: () => setState(
+                      () => _selectedDueDate =
+                          _today().add(const Duration(days: 7)),
                     ),
                   ),
                 ],
-              ],
-            ),
-
-            const SizedBox(height: 20),
-
-            Row(
-              children: [
-                _QuickDateChip(
-                  label: 'Today',
-                  icon: Icons.wb_sunny_rounded,
-                  color: AppColors.success,
-                  isSelected: _isDateSelected(DateTime.now()),
-                  onTap: () => setState(() => _selectedDueDate = _today()),
-                ),
-                const SizedBox(width: 8),
-                _QuickDateChip(
-                  label: 'Tomorrow',
-                  icon: Icons.wb_twilight_rounded,
-                  color: AppColors.warning,
-                  isSelected: _isDateSelected(
-                    DateTime.now().add(const Duration(days: 1)),
-                  ),
-                  onTap: () => setState(
-                    () => _selectedDueDate =
-                        _today().add(const Duration(days: 1)),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                _QuickDateChip(
-                  label: 'Next week',
-                  icon: Icons.date_range_rounded,
-                  color: AppColors.primary,
-                  isSelected: _isDateSelected(
-                    DateTime.now().add(const Duration(days: 7)),
-                  ),
-                  onTap: () => setState(
-                    () => _selectedDueDate =
-                        _today().add(const Duration(days: 7)),
-                  ),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 20),
-
-            const _SectionLabel(label: 'Priority'),
-            const SizedBox(height: 8),
-            Row(
-              children: TodoPriority.values.map((p) {
-                final isSelected = _selectedPriority == p;
-                return Expanded(
-                  child: GestureDetector(
-                    onTap: () => setState(() => _selectedPriority = p),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 180),
-                      margin: const EdgeInsets.only(right: 8),
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      decoration: BoxDecoration(
-                        color: isSelected
-                            ? _priorityColor(p).withValues(alpha: 0.15)
-                            : colorScheme.onSurface.withValues(alpha: 0.05),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
+              ),
+              const SizedBox(height: 20),
+              const _SectionLabel(label: 'Priority'),
+              const SizedBox(height: 8),
+              Row(
+                children: TodoPriority.values.map((p) {
+                  final isSelected = _selectedPriority == p;
+                  return Expanded(
+                    child: GestureDetector(
+                      onTap: () => setState(() => _selectedPriority = p),
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 180),
+                        margin: const EdgeInsets.only(right: 8),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
                           color: isSelected
-                              ? _priorityColor(p)
-                              : Colors.transparent,
-                          width: 1.5,
-                        ),
-                      ),
-                      child: Column(
-                        children: [
-                          Icon(
-                            _priorityIcon(p),
-                            size: 18,
+                              ? _priorityColor(p).withValues(alpha: 0.15)
+                              : colorScheme.onSurface.withValues(alpha: 0.05),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
                             color: isSelected
                                 ? _priorityColor(p)
-                                : colorScheme.onSurface.withValues(alpha: 0.35),
+                                : Colors.transparent,
+                            width: 1.5,
                           ),
-                          const SizedBox(height: 4),
-                          Text(
-                            p.label,
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: isSelected
-                                  ? FontWeight.w700
-                                  : FontWeight.w500,
+                        ),
+                        child: Column(
+                          children: [
+                            Icon(
+                              _priorityIcon(p),
+                              size: 18,
                               color: isSelected
                                   ? _priorityColor(p)
-                                  : colorScheme.onSurface.withValues(alpha: 0.45),
+                                  : colorScheme.onSurface
+                                      .withValues(alpha: 0.35),
                             ),
-                          ),
-                        ],
+                            const SizedBox(height: 4),
+                            Text(
+                              p.label,
+                              style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: isSelected
+                                    ? FontWeight.w700
+                                    : FontWeight.w500,
+                                color: isSelected
+                                    ? _priorityColor(p)
+                                    : colorScheme.onSurface
+                                        .withValues(alpha: 0.45),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
+                  );
+                }).toList(),
+              ),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text('Cancel'),
+                    ),
                   ),
-                );
-              }).toList(),
-            ),
-
-            const SizedBox(height: 24),
-
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Cancel'),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    flex: 2,
+                    child: ElevatedButton(
+                      onPressed: _isSubmitting ? null : () => _submit(context),
+                      child: Text(_isEditing ? 'Save Changes' : 'Add Task'),
+                    ),
                   ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  flex: 2,
-                  child: ElevatedButton(
-                    onPressed: _isSubmitting ? null : () => _submit(context),
-                    child: Text(_isEditing ? 'Save Changes' : 'Add Task'),
-                  ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
