@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../features/auth/presentation/login_screen.dart';
 import '../features/auth/presentation/signup_screen.dart';
-import '../features/home/presentation/home_screen.dart';
+import '../features/todo/presentation/todo_screen.dart';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -12,7 +12,7 @@ class AppRouter {
       case '/signup':
         return MaterialPageRoute(builder: (_) => const SignupScreen());
       case '/home':
-        return MaterialPageRoute(builder: (_) => const HomeScreen());
+        return MaterialPageRoute(builder: (_) => const TodoScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
